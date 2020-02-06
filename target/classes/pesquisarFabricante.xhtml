@@ -1,0 +1,82 @@
+<ui:composition template="templateMenu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tm="http://java.sun.com/jsf/composite/terminal/1_0/components">
+
+	<ui:define name="title">
+		<h:outputText value="Listar Fabricante" />
+	</ui:define>
+
+	<ui:define name="principal">
+		<center>
+			<h1>Pesquise por Grupo</h1>
+
+			<h:form id="formGrupo">
+
+				<p:growl id="growl" showDetail="true" />
+
+				<p:panelGrid columns="2">
+
+					<p:outputLabel for="grupo" value="GRUPO " />
+					<p:selectOneMenu id="grupo" value="#{componenteManagedBean.grupo}"
+						style="width:240px" converter="converterGrupo">
+						<f:selectItem itemLabel="Selecione o Grupo" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{componenteManagedBean.grupos}" var="aux"
+							itemValue="#{aux}" itemLabel="#{aux.nome}" />
+					</p:selectOneMenu>
+				</p:panelGrid>
+
+				<p:commandButton value="Pesquisar" icon="fa fa-search"
+					action="#{componenteManagedBean.pesquisarComponentes}"
+					update=":formGrupo, :tableFabricantes " disabled="false"
+					style="
+                	margin-top: 13px;
+                	margin-bottom: 13px;" />
+
+				<br />
+				<br />
+
+				<p:commandButton value="Exportar como PDF" icon="fa fa-file-pdf-o"
+					ajax="false">
+					<p:dataExporter type="pdf" target=":frmtblfbr1:tableFabricantes"
+						encoding="ISO-8859-1" fileName="PesqRealPDFFab" />
+				</p:commandButton>
+
+				<p:commandButton value="Exportar como XLS" icon="fa fa-file-excel-o"
+					ajax="false">
+					<p:dataExporter type="xls" target="tableFabricantes"
+						fileName="PesqRealizadaXLSFab" />
+				</p:commandButton>
+
+			</h:form>
+		</center>
+
+		<h1>Fabricantes</h1>
+
+		<p:dataTable id="tableFabricantes"
+			value="#{componenteManagedBean.fabricanteGrupo}" var="fabr"
+			emptyMessage="Faça uma busca!">
+
+			<p:column headerText="ID" width="45" footerText="">
+				<p:outputLabel value="#{fabr.numero}" />
+			</p:column>
+
+			<p:column headerText="Nome" width="45" sortBy="#{fabr.nome}">
+				<p:outputLabel value="#{fabr.nome}" />
+			</p:column>
+
+			<p:column headerText="Ativo" width="35">
+				<p:outputLabel value="#{fabr.boolAtivo}" />
+			</p:column>
+
+		</p:dataTable>
+
+		<br />
+		<br />
+
+	</ui:define>
+</ui:composition>

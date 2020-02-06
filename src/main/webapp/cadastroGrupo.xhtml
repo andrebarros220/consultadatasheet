@@ -1,0 +1,94 @@
+  <ui:composition template="templateMenu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tm="http://java.sun.com/jsf/composite/terminal/1_0/components">
+
+
+	<ui:define name="title">
+		<h:outputText value="Cadastro Grupo" />
+	</ui:define>
+
+	<ui:define name="principal">
+	
+		
+	
+		<h1>Cadastro de Grupos</h1>
+		<center>
+		<h:form id="formGrupos">
+		
+		<p:growl id="growl2" showDetail="false" life="2500" />  
+		
+			<p:panelGrid columns="2">
+				<p:outputLabel value="NOME " />
+				<p:inputText value="#{grupoManagedBean.grupo.nome}"
+				             required="true" 
+				             requiredMessage="Campo Nome Obrigatório" />
+			</p:panelGrid>
+			<br />
+			
+			<p:commandButton value="  Salvar  "
+			    icon="fa fa-save"
+				update=":formGrupos, :formTableGrupos"
+				actionListener="#{grupoManagedBean.salvar}"
+				disabled="false" />
+				
+		</h:form>
+		
+         </center>
+
+		<h1>Grupos Cadastrados</h1>
+		<h:form id="formTableGrupos">
+		
+		<p:growl id="growl2" showDetail="false" life="1500"  /> 
+		
+			<p:dataTable 
+			    value="#{grupoManagedBean.grupos}" var="f"
+				editable="true" id="tableComponentes" selectionMode="single"
+				selection="#{grupoManagedBean.grupoSelecionado}"
+				rowKey="#{f.codigo}">
+
+                <p:ajax event="rowEdit" listener="#{grupoManagedBean.onRowEdit}" />
+                
+				<p:ajax event="rowSelect" listener="#{grupoManagedBean.onRowSelect}"
+					    update=":formTableGrupos" />
+				<p:ajax event="rowUnselect" listener="#{grupoManagedBean.onRowUnselect}"
+					update=":formTableGrupos" />
+
+				<p:column headerText="Código" footerText="">
+					<h:outputText value="#{f.codigo}" />
+				</p:column>
+
+				<p:column headerText="Nome: ">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{f.nome}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="modelInput" value="#{f.nome}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+			
+				
+					
+				
+
+				<p:column style="width:70px" headerText="Opções">
+					<p:rowEditor />
+					<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash"
+						style="text-align:center"
+						actionListener="#{grupoManagedBean.remove(f)}"
+						update=":formTableGrupos" />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+
+		
+	</ui:define>
+</ui:composition>

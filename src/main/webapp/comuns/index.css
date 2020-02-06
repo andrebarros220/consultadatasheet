@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+
+#principal{
+	width: 1024px; 
+	background-color: #f43321;
+	margin:auto;
+	
+}
+
+#quadro{
+	margin:400px auto;
+	width: 40%;
+	text-align: center;
+	
+	.ui-datagrid-no-border .ui-datagrid-content {
+	border: none;
+	color: blue;}
+	
+}

@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form name="title">
+
+		<link
+			href="https://fonts.googleapis.com/css?family=Lobster|Orbitron|Raleway"
+			rel="stylesheet"></link>
+
+		<p:menubar
+			style=" text-align: center; font-size: 15px ;font-family:Orbitron, sans-serif ">
+			<p:submenu label="Home" icon="fa fa-home fa-fw"
+				style="text-align: center; font-size: 15px ;font-family:Orbitron, sans-serif">
+				<p:menuitem icon="fa fa-home fa-fw" value=" Home" url="inicio.xhtml" ajax="false" />
+				<p:menuitem icon="fa fa-cog fa-fw" value=" Configurações" url="Login.xhtml" ajax="false" /> 
+			</p:submenu>
+			
+			<p:submenu label="Pesquisa Geral" icon="fa fa-search fa-fw"
+				style="text-align: center; font-size: 15px ;font-family:Orbitron, sans-serif">
+				<p:menuitem icon="fa fa-arrow-right fa-fw" value=" Pesquisar Grupo " url="pesquisarGrupo.xhtml"
+					ajax="false" />
+				<p:menuitem icon="fa fa-industry fa-fw" value=" Pesquisar Fabricante"
+					url="pesquisarFabricante.xhtml" ajax="false" />
+
+			</p:submenu>
+			<p:submenu label="Pesquisa Especificas" icon="fa fa-bolt fa-fw"
+				style="text-align: center; font-size: 15px ;font-family:Orbitron, sans-serif">
+				<p:menuitem icon="fa fa-barcode fa-fw" value=" Pesquisa por Código "
+					url="pesquisarComponente.xhtml" ajax="false" />
+				<p:menuitem icon="fa fa-asterisk fa-fw" value=" Pesquisa por Valor" url="pesquisarValor.xhtml"
+					ajax="false" />
+			</p:submenu>
+			<p:submenu label="Fale Conosco" icon="fa fa-comment-o fa-fw"
+				style="text-align: center; font-size: 15px ;font-family:Orbitron, sans-serif">
+				<p:menuitem icon="fa fa-comments-o fa-fw" value=" Fale Conosco " url="faleConosco.xhtml"
+					ajax="false" />
+
+			</p:submenu>
+		</p:menubar>
+		<br />
+
+		<h1
+			style="font-size: 37px; font-family: Orbitron, sans-serif; text-align: center; overflow: hidden">
+			Consulta Datasheet de Componentes Eletrônicos</h1>
+	</h:form>
+</ui:composition>

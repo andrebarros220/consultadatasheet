@@ -1,0 +1,118 @@
+ <ui:composition template="templateMenu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tm="http://java.sun.com/jsf/composite/terminal/1_0/components">
+
+	<ui:define name="title">
+		<h:outputText value="Cadastro Fabricante" />
+	</ui:define>
+
+	<ui:define name="principal">
+	
+	
+		<h1>Cadastro de Fabricantes</h1>
+	<h:form id="formFabricante">
+	
+	<center>
+	
+	<p:growl id="growl" showDetail="false" life="1500"  /> 
+	
+		<p:panelGrid columns="2">
+			<p:outputLabel value="NOME " />
+			<p:inputText value="#{fabricanteManagedBean.fabricante.nome}" 
+			             required="true" 
+			             requiredMessage="Campo obrigatório!" />
+			
+			<h:outputText value="FABRICANTE ATIVO " />
+			<p:inputSwitch onLabel="Sim" offLabel="Não"
+				value="#{fabricanteManagedBean.fabricante.ativo}" />
+			
+		</p:panelGrid>
+		<br />
+		<p:commandButton value="Salvar"
+			update=":formFabricante, :formTableFabricantes"
+			action="#{fabricanteManagedBean.salvar}"
+			icon="fa fa-save" />
+			
+			</center>
+	</h:form>
+
+
+	<h1>Fabricantes Cadastrados</h1>
+	<h:form id="formTableFabricantes">
+	<center>
+		<p:dataTable value="#{fabricanteManagedBean.fabricantes}" var="r"
+			editable="true" id="tableFabricantes" selectionMode="single"
+			selection="#{fabricanteManagedBean.fabricanteSelecionado}"
+			rowKey="#{r.numero}">
+
+         <p:ajax event="rowEdit" listener="#{fabricanteManagedBean.onRowEdit}" />
+				
+
+			<p:column headerText="Número" footerText="" width="15%">
+				<h:outputText value="#{r.numero}" />
+			</p:column>
+
+			<p:column headerText="Nome: " footerText="">
+				<p:cellEditor>
+					<f:facet name="output">
+						<p:outputLabel value="#{r.nome}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText id="modelInput" value="#{r.nome}" style="width:100%" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			
+				<p:column headerText="Ativo">
+					<h:outputText value="#{p.BoolAtivo}"/>
+				</p:column>
+
+			<p:column style="width:70px" headerText="Opções">
+				<p:rowEditor />
+				
+				<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash"
+					style="text-align:center"
+					actionListener="#{fabricanteManagedBean.remove(r)}"
+					update=":formTableFabricantes" />
+					
+				<p:commandLink id="novoGrupo"
+					styleClass="ui-icon  ui-icon-circle-plus" style="text-align:center"
+					onclick="PF('dlgAddGrupo').show();"
+					update=":formTableFabricantes, :formPickList"
+					actionListener="#{fabricanteManagedBean.addGrupoToFabricante(r)}" />
+			</p:column>
+
+<p:growl id="growl" showDetail="false" life="1500"  /> 
+
+		</p:dataTable>
+		
+		</center>
+	</h:form>
+	
+
+
+	<p:dialog header="Seleção de Grupo" widgetVar="dlgAddGrupo"
+		modal="false" height="400" width="800" >
+		<h:outputText value="Selecione um ou mais Grupos para Associar ao Fabricante" />
+		<h:form id="formPickList">
+			<p:pickList id="pickListGrupos"
+				value="#{fabricanteManagedBean.grupos}" var="f" itemLabel="#{f.nome}"
+				itemValue="#{f}" converter="converterGrupo">
+				<f:facet name="sourceCaption">Grupos a Associar</f:facet>
+				<f:facet name="targetCaption">Grupos Associados</f:facet>
+			</p:pickList>
+			<p:commandButton value="Salvar"
+				action="#{fabricanteManagedBean.associar}"
+				onclick="dlgAddGrupo.hide();" />
+		</h:form>
+	</p:dialog>
+
+
+	<br />
+
+</ui:define>
+</ui:composition>

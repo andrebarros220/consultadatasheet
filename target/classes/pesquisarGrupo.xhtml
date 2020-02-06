@@ -1,0 +1,138 @@
+<ui:composition template="templateMenu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tm="http://java.sun.com/jsf/composite/terminal/1_0/components">
+
+	<ui:define name="title">
+		<h:outputText value="Listar Grupo" />
+	</ui:define>
+
+	<ui:define name="principal">
+	
+		<h1>Grupo</h1>
+		<center>
+			<h:form id="formGrupo">
+				<p:panelGrid columns="2">
+
+					<p:outputLabel for="grupo" value="GRUPO " />
+					<p:selectOneMenu id="grupo" value="#{componenteManagedBean.grupo}"
+						style="width:200px" converter="converterGrupo">
+						<f:selectItem itemLabel="Selecione o Grupo" 
+						              itemValue=""
+							          noSelectionOption="true" />
+						<f:selectItems value="#{componenteManagedBean.grupos}" 
+						               var="aux"
+							           itemValue="#{aux}" 
+							           itemLabel="#{aux.nome}" />
+					</p:selectOneMenu>
+				</p:panelGrid>
+
+			<p:commandButton value="Pesquisar" 
+			        action="#{componenteManagedBean.pesquisarComponentes}"
+				    icon="fa fa-search"
+					update=":formGrupo, :tableComponente"
+					disabled="false"
+					style="
+                	margin-top: 10px;
+                	margin-bottom: 10px;" />
+                	
+                	<br />
+				    <br />
+                    
+				<p:commandButton value="Exportar como PDF" icon="fa fa-file-pdf-o" ajax="false">
+					<p:dataExporter type="pdf" target="tableComponente"
+						encoding="ISO-8859-1" fileName="PesquisaRealizadaPDFGrupo" 
+						pageOnly="true"
+						/>
+				</p:commandButton>
+
+				<p:commandButton value="Exportar como XLS" icon="fa fa-file-excel-o" ajax="false">
+					<p:dataExporter type="xls" target="tableComponente"
+						fileName="PesquisaRealizadaXLSGrupo"
+						pageOnly="true" />
+				</p:commandButton>
+				
+			</h:form>
+		</center>
+
+		
+
+		<h1>Resultado da Pesquisa</h1>
+
+		<p:dataTable id="tableComponente" 
+		             resizableColumns="true"
+		             value="#{componenteManagedBean.componentesGrupo}"
+		             var="comp"
+			         emptyMessage="Faça uma busca!"
+			         filteredValue="#{componenteManagedBean.compfiltrados}"
+			         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  "
+				     paginator="true" rows="10">
+			          
+			
+			<p:column headerText="Código" footerText="" width="12%" >
+				<p:outputLabel value="#{comp.codigodatasheet}"/>
+			</p:column>
+			
+			<p:column headerText="Valor" width="12%" >
+				<p:outputLabel value="#{comp.valor}"  />
+			</p:column>
+			
+			<p:column headerText="Tensão(Volts)" width="14%"  >
+				<p:outputLabel value="#{comp.tensao}" />
+			</p:column>
+			
+			<p:column headerText="Encapsulamento" width="16%">
+				<p:outputLabel value="#{comp.encapsulamento}" />
+			</p:column>
+
+			<p:column headerText="Potência(Waths)" width="16%">
+				<p:outputLabel value="#{comp.potencia}" />
+			</p:column>
+
+			<p:column headerText="Temperatura(Celsius)" width="19%">
+				<p:outputLabel value="#{comp.temperatura}" />
+			</p:column>
+
+			<p:column headerText="Impedância(Ohm)" width="16%">
+				<p:outputLabel value="#{comp.impedancia}" />
+			</p:column>
+
+			<p:column headerText="Tolerância(%)" width="12%" >
+				<p:outputLabel value="#{comp.tolerancia}" />
+			</p:column>
+			
+			<p:column headerText="Tipo" width="8%">
+				<p:outputLabel value="#{comp.tipo}" />
+			</p:column>
+			
+			<p:column headerText="Tipo de Material" width="13%">
+				<p:outputLabel value="#{comp.tipomaterial}" />
+			</p:column>
+			             
+		</p:dataTable>
+		
+		
+			<script type="text/javascript">
+			/* <![CDATA[ */
+			jQuery(myTblWidget.jqId).find('th .ui-column-filter[onenter]')
+					.each(function(idx) {
+						var curEl = jQuery(this);
+						curEl.unbind('keydown');
+
+						curEl.keydown(function(event) {
+							var e = (window.event) ? window.event : event;
+							if (e.keyCode == 13) {
+								event.preventDefault();
+								eval(curEl.attr('onenter'));
+							}
+						})
+					});
+			/* ]]> */
+		</script>
+		<br/> <br/> <br/>
+	
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,234 @@
+	<ui:composition template="templateMenu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tm="http://java.sun.com/jsf/composite/terminal/1_0/components">
+	
+
+
+	<ui:define name="title">
+		<h:outputText value="Cadastro Componente" />
+	</ui:define>
+
+	<ui:define name="principal">
+
+		<h1>Cadastro de Componentes</h1>
+
+		<h:form enctype="multipart/form-data" id="formComponentes" >
+		
+		<p:growl id="growl" showDetail="false" life="1500" />  
+		
+			<p:panelGrid columns="2">
+				<p:outputLabel value="CÓDIGO DATASHEET " />
+			    <p:inputText value="#{componenteManagedBean.componente.codigodatasheet}" required="true" requiredMessage="Campo Código Obrigatório" />
+			    <p:outputLabel value="VALOR " />
+				<p:inputText value="#{componenteManagedBean.componente.valor}" />
+				<p:outputLabel value="TENSÃO (Volts)" />
+				<p:inputText value="#{componenteManagedBean.componente.tensao}" />		
+				<p:outputLabel value="ENCAPSULAMENTO " />
+				<p:inputText value="#{componenteManagedBean.componente.encapsulamento}" />
+				<p:outputLabel value="POTÊNCIA (Waths)" />
+				<p:inputText value="#{componenteManagedBean.componente.potencia}" />
+				<p:outputLabel value="TEMPERATURA (Celsius)" />
+				<p:inputText value="#{componenteManagedBean.componente.temperatura}" />
+				<p:outputLabel value="IMPEDÂNCIA (Ohm)" />
+				<p:inputText value="#{componenteManagedBean.componente.impedancia}" />
+				<p:outputLabel value="TOLERÂNCIA (Porcentagem)" />
+				<p:inputText value="#{componenteManagedBean.componente.tolerancia}" />
+				<p:outputLabel value="TIPO " />
+				<p:inputText value="#{componenteManagedBean.componente.tipo}" />
+				<p:outputLabel value="MATERIAL DE FABRICAÇÃO " />
+				<p:inputText value="#{componenteManagedBean.componente.tipomaterial}" />
+			
+				 <p:growl id="messages" life="1500" showDetail="false"/>
+					
+				<br /> <br />
+	
+				<p:outputLabel value="GRUPO " />
+				<p:selectOneMenu value="#{componenteManagedBean.grupo}"
+					converter="converterGrupo">
+					<f:selectItem itemValue="" itemLabel="Selecione um grupo" />
+					<f:selectItems value="#{componenteManagedBean.grupos}" var="aux"
+						itemValue="#{aux}" itemLabel="#{aux.nome}" />
+				</p:selectOneMenu>
+
+			</p:panelGrid>
+			<br />
+			<p:commandButton value="Salvar"
+				update=":formComponentes, :formTableComponentes"
+			    icon="fa fa-save"
+			    actionListener="#{componenteManagedBean.salvar}"/>
+
+		</h:form>
+
+		<h1>Componentes Cadastrados</h1>
+		<h:form id="formTableComponentes">
+			<p:dataTable value="#{componenteManagedBean.listaComponentes}"
+				         var="prod"
+				         editable="true" 
+				         id="tableComponentes">
+
+				<p:ajax event="rowEdit"
+					listener="#{componenteManagedBean.onRowEdit}" />
+					
+					<p:column headerText="ID" footerText="">
+					<h:outputText value="#{prod.id}" />
+				</p:column>
+
+							<p:column headerText="Código">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{prod.codigodatasheet}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="modelInput" value="#{prod.codigodatasheet}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Valor">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{prod.valor}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="model" value="#{prod.valor}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Tensão">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{prod.tensao}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="model1" value="#{prod.tensao}" style="width:5%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Encapsulamento">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{prod.encapsulamento}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="model2" value="#{prod.encapsulamento}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Potência">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{prod.potencia}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="model3" value="#{prod.potencia}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Temperatura">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{prod.temperatura}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="model4" value="#{prod.temperatura}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Impedância">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{prod.impedancia}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="model5" value="#{prod.impedancia}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Tolerância">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{prod.tolerancia}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="model6" value="#{prod.tolerancia}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Tipo">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{prod.tipo}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="model7" value="#{prod.tipo}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Tipo de Material">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{prod.tipomaterial}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="model8" value="#{prod.tipomaterial}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Grupo">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{prod.grupo.nome}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{prod.grupo}" converter="converterGrupo"
+								style="width:100%">
+								<f:selectItem itemValue="" itemLabel="Selecione um grupo" />
+								<f:selectItems value="#{componenteManagedBean.grupos}" var="aux"
+									itemValue="#{aux}" itemLabel="#{aux.nome}" />
+							</p:selectOneMenu>
+
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column style="width:70px" headerText="Opções">
+
+					<p:rowEditor />
+
+					<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash"
+						style="text-align:center"
+						actionListener="#{componenteManagedBean.remove(prod)}"
+						update=":formTableComponentes"
+						 />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+		
+		
+		

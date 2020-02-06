@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+
+
+<f:view>
+	<h:head>
+	
+<link rel="stylesheet" href="main.css">
+			</link>
+			
+		<style>
+  .ui-datagrid-no-border .ui-datagrid-content {
+	border: none;
+	color: blue;}
+      </style>
+
+<style>
+    body {background-color: #00008B; font-size: 10px; }
+ </style>
+
+		<title><ui:insert name="title">
+				<h:outputLabel value="MenuPrincipal" />
+			</ui:insert></title>
+			<link rel="stylesheet" href="main.css">
+			</link>
+			
+	</h:head>
+
+	<h:body>
+
+		<p:layout id="globalLayout" fullPage="true"  >
+
+		  <p:layoutUnit position="north" size="187" background-color="#1874CD" header="" 
+		    style="overflow:hidden">
+				<ui:include src="comuns/cabecalho.xhtml" />
+			</p:layoutUnit>
+
+
+			<p:layoutUnit position="south" size="29">
+				<ui:include src="comuns/rodape.xhtml" />
+			</p:layoutUnit>
+
+ 
+
+
+			<p:layoutUnit position="center" size="1800" >
+				<ui:insert name="principal"  />
+							
+			</p:layoutUnit>
+			
+		</p:layout>
+
+	</h:body>
+</f:view>
+</h:html>
+
+
+
+
+
+
+

@@ -1,0 +1,103 @@
+ <ui:composition template="templateMenu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tm="http://java.sun.com/jsf/composite/terminal/1_0/components">
+
+
+	<ui:define name="title">
+		<h:outputText value="Cadastro Usuario" />
+	</ui:define>
+ 
+	<ui:define name="principal">
+ 
+
+	
+		<h1>Cadastro de Usuarios</h1>
+		<center>
+		<h:form id="formUsuarios">
+		
+		<p:growl id="growl2" showDetail="false" life="2500" />  
+		
+			<p:panelGrid columns="2">
+				<p:outputLabel value="NOME " />
+				<p:inputText value="#{usuarioManagedBean.usuario.nome}"
+				             required="true" 
+				             requiredMessage="Campo Nome Obrigatório" />
+				             
+				             <p:outputLabel value="SENHA " />
+				<p:inputText value="#{usuarioManagedBean.usuario.senha}"
+				             required="true" 
+				             requiredMessage="Campo Senha Obrigatório" />
+				             
+			</p:panelGrid>
+			<br />
+			
+			<p:commandButton value="  Salvar  "
+			    icon="fa fa-save"
+				update=":formUsuarios, :formTableUsuarios"
+				actionListener="#{usuarioManagedBean.salvar}"
+				disabled="false" />
+				
+		</h:form>
+		
+         </center>
+
+		<h1>Usuarios Cadastrados</h1>
+		
+		<h:form id="formTableUsuarios">
+			<p:dataTable value="#{usuarioManagedBean.listaUsuarios}"
+				         var="usu"
+				         editable="true" 
+				         id="tableUsuarios">
+
+				<p:ajax event="rowEdit"
+					listener="#{usuarioManagedBean.onRowEdit}" />
+					
+					<p:column headerText="ID" footerText="">
+					<h:outputText value="#{usu.ID}" />
+				</p:column>
+
+							<p:column headerText="Nome">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{usu.nome}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="modelInput" value="#{usu.nome}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Senha">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{usu.senha}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="model" value="#{usu.senha}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+								
+				<p:column style="width:70px" headerText="Opções">
+
+					<p:rowEditor />
+
+					<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash"
+						style="text-align:center"
+						actionListener="#{usuarioManagedBean.remove(usu)}"
+						update=":formTableUsuarios"
+						 />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

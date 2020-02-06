@@ -1,0 +1,70 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form>
+		<p:panelMenu>
+			<p:submenu label="Seja bem Vindo!">
+
+				<p:menuitem value="Inicio" 
+				     url="inicio.xhtml" />
+
+			</p:submenu>
+
+			<p:submenu label="Cadastros">
+
+                <p:menuitem value="Usuario" 
+				    url="cadastroUsuario.xhtml" />
+				<p:menuitem value="Grupo" 
+				    url="cadastroGrupo.xhtml" />
+
+				<p:menuitem value="Componente" 
+				    url="cadastroComponente.xhtml" />
+
+				<p:menuitem value="Fabricante" 
+				     url="cadastroFabricante.xhtml" />
+
+			</p:submenu>
+
+
+
+			<p:submenu label="Pesquisas">
+
+				<p:menuitem value="Pesquisar Fabricante"
+					url="pesquisarFabricante.xhtml" />
+
+				<p:menuitem value="Pesquisar por Grupo" 
+				    url="pesquisarGrupo.xhtml" />
+
+				<p:menuitem value="Pesquisar Componente por Codigo Datasheet"
+					url="pesquisarComponente.xhtml" />
+					
+					<p:menuitem value="Pesquisar Componente por Valor"
+					url="pesquisarValor.xhtml" />
+					
+					<p:menuitem value="Pesquisa Geral"
+					url="pesquisa.xhtml" />
+					
+					
+
+			</p:submenu>
+
+			<p:submenu label="Fale Conosco">
+
+				<p:menuitem value="Fale Conosco" 
+				    url="faleConosco.xhtml" />
+
+				</p:submenu>
+			
+
+
+
+
+
+
+
+		</p:panelMenu>
+	</h:form>
+</ui:composition>
+

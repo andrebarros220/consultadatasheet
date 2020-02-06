@@ -1,0 +1,48 @@
+<ui:composition template="templateMenu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tm="http://java.sun.com/jsf/composite/terminal/1_0/components">
+
+	<ui:define name="title">
+		<h:outputText value="Outros" />
+	</ui:define>
+
+	<ui:define name="principal">
+
+	<h:form id="formMenu">
+	<p:growl id="growl" showDetail="false" life="1500" /> 
+			<p:menubar style="text-align: center;">
+
+				<p:submenu label="Cadastro" icon="fa fa-edit fa-fw"
+					style="text-align: center; font-size: 15px ;font-family:Orbitron, sans-serif">
+					<p:menuitem value="Cadastro de Usuario "
+						url="cadastroUsuario.xhtml" ajax="false" />
+					<p:menuitem value="Cadastro de Grupo " url="cadastroGrupo.xhtml"
+						ajax="false" />
+					<p:menuitem value="Cadastro de Fabricante "
+						url="cadastroFabricante.xhtml" ajax="false" />
+					<p:menuitem value="Cadastro de Componente "
+						url="cadastroComponente.xhtml" ajax="false" />
+				</p:submenu>
+
+				
+			</p:menubar>
+		
+
+			
+			
+			<br /> <br /> <br /> <br /> <br /> <br />
+
+		</h:form>
+		
+		 
+
+	</ui:define>
+
+
+
+
+</ui:composition>

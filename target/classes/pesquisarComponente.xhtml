@@ -1,0 +1,145 @@
+<ui:composition template="templateMenu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tm="http://java.sun.com/jsf/composite/terminal/1_0/components">
+
+	<ui:define name="title" >
+<h:outputText value="Listar Componente" />
+	</ui:define>
+
+	<ui:define name="principal">
+		
+	<script>
+        jQuery(document).ready(function(jQuery) {
+            // Chamada da funcao upperText(); ao carregar a pagina
+            upperText();
+        });
+        // Funcao que faz o texto ficar em uppercase
+        function upperText() {
+            // Para tratar o colar
+            jQuery(".up").bind('paste', function(e) {
+                var el = jQuery(this);
+                setTimeout(function() {
+                    var text = jQuery(el).val();
+                    el.val(text.toUpperCase());
+                }, 100);
+            });
+            // Para tratar quando é digitado
+            jQuery(".up").keypress(function() {
+                var el = jQuery(this);
+                setTimeout(function() {
+                    var text = jQuery(el).val();
+                    el.val(text.toUpperCase());
+                   }, 100);
+            });
+        }
+    </script>
+
+	<h1>Componente</h1>
+	
+		<center>
+			<h:form id="formComponente">
+				<p:growl id="growl" showDetail="false" life="2000"/>
+				
+				<p:panelGrid columns="2">
+					<p:outputLabel for="componente" value="COMPONENTE "/>
+				
+					<p:inputText id="componente"
+						value="#{componenteManagedBean.componente}" 
+						style="width:200px"
+						styleClass="up"
+						converter="converterComponente"
+						autocomplete="false"
+						title="Digite o Código Datasheet Completo">	
+					</p:inputText>
+					<p:watermark for="componente" value="Digite o Código Datasheet" />
+                    
+                    <p:tooltip id="toolTipFocus" for="componente" showEvent="focus" hideEvent="blur" hideEffect="explode" />
+				</p:panelGrid>
+
+				<p:commandButton value="Pesquisar" icon="fa fa-search"
+					action="#{componenteManagedBean.pesquisarComponentesCodigo}"
+					update="formComponente,:tableComponentes" disabled="false"
+					style="
+                	margin-top: 15px;
+                	margin-bottom: 25px;"
+                	ajax="true" 
+                	resetValues="true"/>
+                   
+                   <br /> 
+				
+				<p:commandButton value="Exportar como PDF" icon="fa fa-file-pdf-o"
+					ajax="false">
+ 
+					<p:dataExporter type="pdf" target="tableComponentes"
+						encoding="ISO-8859-1" fileName="PesqRealPDFCompUn" />
+				</p:commandButton>
+
+				<p:commandButton value="Exportar como XLS" icon="fa fa-file-excel-o"
+					ajax="false">
+
+					<p:dataExporter type="xls" target="tableComponentes"
+						fileName="PesqRealXLSCompUn" />
+				</p:commandButton>
+				
+			</h:form>
+		</center>
+	
+	<h1>Resultado da Pesquisa</h1>
+
+		<p:dataTable id="tableComponentes"
+			value="#{componenteManagedBean.compon}" var="compo"
+			emptyMessage="Faça uma busca!" 
+			>
+			
+			<p:column headerText="Código" footerText="" width="12%">
+				<p:outputLabel value="#{compo.codigodatasheet}" />
+			</p:column>
+
+			<p:column headerText="Valor" width="12%">
+				<p:outputLabel value="#{compo.valor}" />
+			</p:column>
+
+			<p:column headerText="Tensão (Volts)" width="12%">
+				<p:outputLabel value="#{compo.tensao}" />
+			</p:column>
+
+			<p:column headerText="Encapsulamento" width="18%">
+				<p:outputLabel value="#{compo.encapsulamento}"/>
+			</p:column>
+
+			<p:column headerText="Potência (Waths)" width="15%">
+				<p:outputLabel value="#{compo.potencia}" />
+			</p:column>
+
+			<p:column headerText="Temperatura(Celsius)" width="22%">
+				<p:outputLabel value="#{compo.temperatura}" />
+			</p:column>
+
+			<p:column headerText="Impedância(Ohm)" width="18%">
+				<p:outputLabel value="#{compo.impedancia}" />
+			</p:column>
+
+			<p:column headerText="Tolerância(%)" width="16%">
+				<p:outputLabel value="#{compo.tolerancia}" />
+			</p:column>
+
+			<p:column headerText="Tipo" width="8%">
+				<p:outputLabel value="#{compo.tipo}" />
+			</p:column>
+
+			<p:column headerText="Material de Fabricação" width="15%">
+				<p:outputLabel value="#{compo.tipomaterial}" />
+			</p:column>
+
+		</p:dataTable>
+
+		<br /> <br /> <br />
+	
+	
+	</ui:define>
+
+</ui:composition>
